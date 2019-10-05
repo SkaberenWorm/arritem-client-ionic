@@ -1,0 +1,59 @@
+<ion-searchbar
+  placeholder="Buscar Departamento"
+  (keyup)="filtrarDepartamento($event.target.value)"
+></ion-searchbar>
+
+<ion-content>
+  <!-- Skeleton screen -->
+  <div *ngIf="listaDepartamentos.length == 0 && loading">
+    <ion-card *ngFor="let item of [0, 1, 2, 3, 4]">
+      <ion-item>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        <ion-skeleton-text animated slot="end" style="width: 2%"></ion-skeleton-text>
+      </ion-item>
+      <ion-card-header>
+        <ion-thumbnail class="ion-margin-center">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-card-title>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </ion-card-title>
+        <ion-card-subtitle>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ng-container *ngIf="listaDepartamentos.length > 0">
+    <ion-card *ngFor="let departamento of listaDepartamentos">
+      <ion-item>
+        <ion-label>{{ departamento.direccion }}</ion-label>
+        <ion-button fill="clear" slot="end" name="star" (click)="presentActionSheet(departamento)">
+          <ion-icon slot="icon-only" name="md-more"> </ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-card-header>
+        <ion-img src="https://picsum.photos/900/500?random&t={{ departamento.id }}"></ion-img>
+
+        <ion-card-title>{{ departamento.nombre }}</ion-card-title>
+        <ion-card-subtitle>{{ departamento.direccion }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        Keep close to Nature's heart... and break clear away, once in awhile, and climb a mountain
+        or spend a week in the woods. Wash your spirit clean.
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ion-infinite-scroll threshold="200px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="circles" loadingText="Cargando departamentos...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

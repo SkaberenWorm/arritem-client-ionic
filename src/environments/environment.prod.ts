@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  auth_url: 'https://arritem.herokuapp.com/',
+  backend_url: 'https://arritem.herokuapp.com/'
 };
