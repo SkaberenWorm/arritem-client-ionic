@@ -5,22 +5,24 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePage } from './profile.page';
+import { HomePage } from './home.page';
+import { CommonsServiceModule } from '../../commons/commons-service.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProfilePage
+    component: HomePage
   }
 ];
 
 @NgModule({
   imports: [
+    CommonsServiceModule,
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProfilePage]
+  declarations: [HomePage]
 })
-export class ProfilePageModule {}
+export class HomePageModule {}

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DepartamentoService } from '../services/departamento.service';
-import { Departamento } from '../commons/models/departamento.model';
-import { UtilAlertService } from '../commons/util/util-alert.service';
+import { DepartamentoService } from '../../services/departamento.service';
+import { Departamento } from '../../commons/models/departamento.model';
+import { UtilAlertService } from '../../commons/util/util-alert.service';
 import { IonInfiniteScroll, ActionSheetController } from '@ionic/angular';
 
 @Component({
@@ -40,6 +40,9 @@ export class SearchPage implements OnInit {
       .subscribe(result => {
         if (!result.error) {
           let listaDepartamentosTmp: Array<Departamento> = [];
+          if (this.departamentoFilter.direccion.length > 0) {
+            this.listaDepartamentos = [];
+          }
           listaDepartamentosTmp = result.resultado.content;
           this.totalElements = result.resultado.totalElements;
           this.agregarDepartamentos(listaDepartamentosTmp);
@@ -66,14 +69,19 @@ export class SearchPage implements OnInit {
    * @param depto
    */
   filtrarDepartamento(depto: string) {
+    console.log(depto);
+    this.loading = true;
+    this.page = 1;
     if (depto.length > 0) {
       this.departamentoFilter = new Departamento({ direccion: depto });
-      this.listaDepartamentos = [];
-      this.loading = true;
-      this.listarDepartamentos();
     } else {
       this.departamentoFilter = new Departamento({ direccion: '' });
     }
+    this.listarDepartamentos();
+  }
+
+  borrarFiltroDepartamento() {
+    this.filtrarDepartamento('');
   }
 
   /**
@@ -101,7 +109,7 @@ export class SearchPage implements OnInit {
    * @param event
    */
   loadData(event) {
-    if (this.listaDepartamentos.length != this.totalElements) {
+    if (this.listaDepartamentos.length < this.totalElements) {
       this.page++;
       this.listarDepartamentos();
     } else {

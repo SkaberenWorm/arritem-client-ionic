@@ -1,6 +1,7 @@
 <ion-searchbar
   placeholder="Buscar Departamento"
   (keyup)="filtrarDepartamento($event.target.value)"
+  (ionClear)="borrarFiltroDepartamento()"
 ></ion-searchbar>
 
 <ion-content>

@@ -5,14 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SearchPage } from './search.page';
-import { HttpClientModule } from '@angular/common/http';
-import { DepartamentoService } from '../services/departamento.service';
+import { ReservationPage } from './reservation.page';
+import { CommonsServiceModule } from '../../commons/commons-service.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: SearchPage
+    component: ReservationPage
   }
 ];
 
@@ -21,10 +20,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    HttpClientModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CommonsServiceModule
   ],
-  declarations: [SearchPage],
-  providers: [DepartamentoService]
+  declarations: [ReservationPage]
 })
-export class SearchPageModule {}
+export class ReservationPageModule {}
