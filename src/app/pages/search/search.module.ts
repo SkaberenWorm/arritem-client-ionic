@@ -8,7 +8,11 @@ import { IonicModule } from '@ionic/angular';
 import { SearchPage } from './search.page';
 import { HttpClientModule } from '@angular/common/http';
 import { DepartamentoService } from '../../services/departamento.service';
-import { CommonsServiceModule } from '../../commons/commons-service.module';
+import { ReservationAddPageModule } from '../reservation/reservation-add/reservation-add.module';
+import { ReservationAddPage } from '../reservation/reservation-add/reservation-add.page';
+import { CommonsServiceModule } from 'src/app/commons/commons-service.module';
+import { JwtInterceptor } from 'src/app/commons/interceptors/jwt.interceptor';
+import { TokenInterceptor } from 'src/app/commons/interceptors/token.interceptor';
 
 const routes: Routes = [
   {
@@ -18,12 +22,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [ReservationAddPage],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     HttpClientModule,
     RouterModule.forChild(routes),
+    ReservationAddPageModule,
     CommonsServiceModule
   ],
   declarations: [SearchPage],

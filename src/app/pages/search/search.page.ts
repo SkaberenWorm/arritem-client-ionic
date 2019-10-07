@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DepartamentoService } from '../../services/departamento.service';
 import { Departamento } from '../../commons/models/departamento.model';
 import { UtilAlertService } from '../../commons/util/util-alert.service';
-import { IonInfiniteScroll, ActionSheetController } from '@ionic/angular';
+import { IonInfiniteScroll, ActionSheetController, ModalController } from '@ionic/angular';
+import { ReservationAddPage } from '../reservation/reservation-add/reservation-add.page';
 
 @Component({
   selector: 'app-search',
@@ -23,7 +24,8 @@ export class SearchPage implements OnInit {
   constructor(
     private departamentoService: DepartamentoService,
     private alert: UtilAlertService,
-    public actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -33,23 +35,26 @@ export class SearchPage implements OnInit {
   /**
    * Listamos la primera página de departamentos
    */
-  listarDepartamentos() {
+  listarDepartamentos(event?) {
     this.loading = true;
     this.departamentoService
       .listWithSearchAndPagination(this.departamentoFilter, this.page, this.pageSize)
       .subscribe(result => {
         if (!result.error) {
           let listaDepartamentosTmp: Array<Departamento> = [];
+          listaDepartamentosTmp = result.resultado.content;
+          this.totalElements = result.resultado.totalElements;
           if (this.departamentoFilter.direccion.length > 0) {
             this.listaDepartamentos = [];
           }
-          listaDepartamentosTmp = result.resultado.content;
-          this.totalElements = result.resultado.totalElements;
           this.agregarDepartamentos(listaDepartamentosTmp);
         } else {
           this.alert.warningSwal(result.mensaje);
         }
         this.loading = false;
+        if (event != null) {
+          event.target.complete();
+        }
       });
   }
 
@@ -69,7 +74,6 @@ export class SearchPage implements OnInit {
    * @param depto
    */
   filtrarDepartamento(depto: string) {
-    console.log(depto);
     this.loading = true;
     this.page = 1;
     if (depto.length > 0) {
@@ -158,6 +162,8 @@ export class SearchPage implements OnInit {
           icon: 'ios-bookmarks',
           handler: () => {
             console.log('Reservation clicked');
+
+            this.presentModal(departamento);
           }
         },
 
@@ -194,5 +200,13 @@ export class SearchPage implements OnInit {
       ]
     });
     await actionSheet.present();
+  }
+
+  async presentModal(departamento: Departamento) {
+    const modal = await this.modalController.create({
+      component: ReservationAddPage,
+      componentProps: departamento
+    });
+    return await modal.present();
   }
 }

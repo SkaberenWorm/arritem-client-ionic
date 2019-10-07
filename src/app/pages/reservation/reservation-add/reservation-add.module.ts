@@ -5,17 +5,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePage } from './profile.page';
-
+import { ReservationAddPage } from './reservation-add.page';
+import { LoginGuard } from 'src/app/commons/guards/login.guard';
 const routes: Routes = [
   {
-    path: '',
-    component: ProfilePage
+    path: 'new',
+    component: ReservationAddPage,
+    canLoad: [LoginGuard]
   }
 ];
-
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, RouterModule.forChild(routes)],
-  declarations: [ProfilePage]
+  declarations: [ReservationAddPage]
 })
-export class ProfilePageModule {}
+export class ReservationAddPageModule {}

@@ -9,7 +9,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(public auth: AuthenticationService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    //console.log('Token interceptado');
+    console.log('TOKEN interceptado');
     if (request.url.indexOf('reset-password') === -1) {
       if (request.headers.get('Authorization') === null) {
         if (this.auth.token === '') {

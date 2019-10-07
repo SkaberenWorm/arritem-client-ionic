@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { HomePage } from './home.page';
-import { CommonsServiceModule } from '../../commons/commons-service.module';
 
 const routes: Routes = [
   {
@@ -16,13 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonsServiceModule,
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule.forChild(routes)],
   declarations: [HomePage]
 })
 export class HomePageModule {}

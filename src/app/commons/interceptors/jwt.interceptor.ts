@@ -16,7 +16,7 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private auth: AuthenticationService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    //console.log('JWT interceptado');
+    console.log('JWT interceptado');
     return next.handle(request).pipe(
       tap(
         (event: HttpEvent<any>) => {},

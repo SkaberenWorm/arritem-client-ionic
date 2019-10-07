@@ -1,8 +1,10 @@
-<ion-searchbar
-  placeholder="Buscar Departamento"
-  (keyup)="filtrarDepartamento($event.target.value)"
-  (ionClear)="borrarFiltroDepartamento()"
-></ion-searchbar>
+<ion-header no-border>
+  <ion-searchbar
+    placeholder="Buscar Departamento"
+    (keyup)="filtrarDepartamento($event.target.value)"
+    (ionClear)="borrarFiltroDepartamento()"
+  ></ion-searchbar>
+</ion-header>
 
 <ion-content>
   <!-- Skeleton screen -->
@@ -32,6 +34,9 @@
     </ion-card>
   </div>
   <ng-container *ngIf="listaDepartamentos.length > 0">
+    <ion-refresher slot="fixed" (ionRefresh)="listarDepartamentos($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <ion-card *ngFor="let departamento of listaDepartamentos">
       <ion-item>
         <ion-label>{{ departamento.direccion }}</ion-label>

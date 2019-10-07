@@ -21,7 +21,6 @@ export class LoginGuard implements CanActivate, CanLoad {
     return this._auth.isLogin();
   }
   canLoad() {
-    console.log('canload');
     return this._auth.isLogin();
   }
 }

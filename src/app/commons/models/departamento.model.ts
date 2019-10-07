@@ -6,7 +6,14 @@ export class Departamento {
   public estado = null;
   public activo = true;
 
-  constructor(fields?: { id?: number; nombre?: string; direccion?: string; tarifa?: number; estado?: string; activo?: boolean }) {
+  constructor(fields?: {
+    id?: number;
+    nombre?: string;
+    direccion?: string;
+    tarifa?: number;
+    estado?: string;
+    activo?: boolean;
+  }) {
     if (fields) {
       Object.assign(this, fields);
     }
