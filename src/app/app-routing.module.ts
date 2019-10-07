@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' } */
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true })],
   exports: [RouterModule],
   providers: [LoginService]
 })
