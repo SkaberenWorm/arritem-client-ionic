@@ -13,6 +13,9 @@ import { AuthenticationService } from 'src/app/commons/services/authentication.s
 import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 import { ReservaService } from 'src/app/services/reserva.service';
 import { ResultadoProc } from 'src/app/commons/interfaces/resultado-proc.interface';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Util } from 'src/app/commons/util/util';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reservation-add',
@@ -21,8 +24,15 @@ import { ResultadoProc } from 'src/app/commons/interfaces/resultado-proc.interfa
 })
 export class ReservationAddPage implements OnInit {
   customPickerOptions: any;
+  public paso = 1;
   public departamento: Departamento;
   public reserva: Reserva = new Reserva();
+  public formulario: FormGroup;
+  public cantidadDias = 0;
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
   constructor(
     private navParams: NavParams,
     private modalController: ModalController,
@@ -37,8 +47,18 @@ export class ReservationAddPage implements OnInit {
   ngOnInit() {
     this.reserva.departamento = this.departamento = new Departamento({
       id: this.navParams.get('id'),
-      direccion: this.navParams.get('direccion')
+      direccion: this.navParams.get('direccion'),
+      tarifa: this.navParams.get('tarifa'),
+      estado: this.navParams.get('estado')
     });
+
+    console.log(this.reserva);
+
+    this.formulario = new FormGroup({
+      fechaInicio: new FormControl('', [Validators.required]),
+      fechaTermino: new FormControl('', [Validators.required])
+    });
+
     this.clienteService
       .getByUserOrEmail(this.authenticationService.obtenerUserName())
       .subscribe(result => {
@@ -48,6 +68,7 @@ export class ReservationAddPage implements OnInit {
           this.alert.errorSwal(result.mensaje);
         }
       });
+    console.log(this.formulario);
   }
 
   /**
@@ -71,6 +92,7 @@ export class ReservationAddPage implements OnInit {
   }
 
   validarFecha(event: any) {
+    this.calcularDiasAndCosto();
     console.log(event);
   }
 
@@ -79,15 +101,24 @@ export class ReservationAddPage implements OnInit {
    */
   reservar() {
     console.log('reservando');
-    this.presentLoadingWithOptions();
-    this.reservaService.guardar(this.reserva).subscribe(result => {
-      if (!result.error) {
-        this.presentAlert(result);
-      } else {
-        this.presentAlert(result);
-      }
-      this.cerrarLoadingReserva();
-    });
+    console.log(this.formulario);
+    Util.setFormForValidate(this.formulario);
+    console.log(this.formulario);
+
+    if (this.formulario.valid) {
+      this.calcularDiasAndCosto();
+      /*  this.presentLoadingWithOptions();
+      this.reservaService.guardar(this.reserva).subscribe(result => {
+        if (!result.error) {
+          this.presentAlert(result);
+        } else {
+          this.presentAlert(result);
+        }
+        this.cerrarLoadingReserva();
+      }); */
+    } else {
+      console.log('Formulario inválido');
+    }
   }
 
   async presentAlert(resut: ResultadoProc<Reserva>) {
@@ -149,5 +180,39 @@ export class ReservationAddPage implements OnInit {
       cssClass: 'custom-class custom-loading'
     });
     await loading.present();
+  }
+
+  /**
+   * Continua con el siguiente paso de la reserva
+   */
+  next() {
+    if (this.paso <= 2) {
+      this.paso++;
+    }
+  }
+
+  /**
+   * Retrocede 1 paso de la reserva y si esta en la primera pagina se sale de la reserva
+   */
+  previous() {
+    if (this.paso == 1) {
+      this.dismiss();
+    } else if (this.paso >= 2) {
+      this.paso--;
+    }
+  }
+
+  calcularDiasAndCosto() {
+    if (
+      this.formulario.controls.fechaInicio.value != '' &&
+      this.formulario.controls.fechaTermino.value != ''
+    ) {
+      let fechaInicio = moment(this.formulario.controls.fechaInicio.value);
+      let fechaTermino = moment(this.formulario.controls.fechaTermino.value);
+      let dias = fechaTermino.diff(fechaInicio, 'days') + 1;
+      console.log(fechaInicio, fechaTermino, dias);
+      this.reserva.total = this.reserva.departamento.tarifa * dias;
+      this.cantidadDias = dias;
+    }
   }
 }

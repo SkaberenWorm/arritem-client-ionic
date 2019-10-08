@@ -30,7 +30,7 @@ export class ReservaService {
   }
 
   public guardar(reserva: Reserva): Observable<ResultadoProc<Reserva>> {
-    reserva.id = 1;
+    //reserva.id = 1;
     reserva.estado.id = 1;
     if (reserva.id > 0) {
       return this.http.put<ResultadoProc<Reserva>>(this.urlBase, reserva);
