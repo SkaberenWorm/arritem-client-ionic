@@ -107,7 +107,7 @@ export class ReservationAddPage implements OnInit {
 
     if (this.formulario.valid) {
       this.calcularDiasAndCosto();
-      /*  this.presentLoadingWithOptions();
+      this.presentLoadingWithOptions();
       this.reservaService.guardar(this.reserva).subscribe(result => {
         if (!result.error) {
           this.presentAlert(result);
@@ -115,7 +115,7 @@ export class ReservationAddPage implements OnInit {
           this.presentAlert(result);
         }
         this.cerrarLoadingReserva();
-      }); */
+      });
     } else {
       console.log('Formulario inválido');
     }
@@ -209,6 +209,8 @@ export class ReservationAddPage implements OnInit {
     ) {
       let fechaInicio = moment(this.formulario.controls.fechaInicio.value);
       let fechaTermino = moment(this.formulario.controls.fechaTermino.value);
+      this.reserva.fechaHoraInicio = fechaInicio.toDate();
+      this.reserva.fechaHoraTermino = fechaTermino.toDate();
       let dias = fechaTermino.diff(fechaInicio, 'days') + 1;
       console.log(fechaInicio, fechaTermino, dias);
       this.reserva.total = this.reserva.departamento.tarifa * dias;
