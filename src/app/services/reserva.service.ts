@@ -21,6 +21,17 @@ export class ReservaService {
     );
   }
 
+  public misReservas(cliente: string): Observable<ResultadoProc<Array<Reserva>>> {
+    return this.http
+      .get<ResultadoProc<Array<Reserva>>>(`${this.urlBase}/search/me/${cliente}`)
+      .pipe(
+        map(result => {
+          console.log(result.resultado);
+          return result;
+        })
+      );
+  }
+
   public getById(id: number): Observable<ResultadoProc<Reserva>> {
     return this.http.get<ResultadoProc<Reserva>>(`${this.urlBase}/${id}`).pipe(
       map(result => {
@@ -30,10 +41,10 @@ export class ReservaService {
   }
 
   public guardar(reserva: Reserva): Observable<ResultadoProc<Reserva>> {
-    reserva.estado.id = 1;
     if (reserva.id > 0) {
       return this.http.put<ResultadoProc<Reserva>>(this.urlBase, reserva);
     } else {
+      reserva.estado.id = 1;
       return this.http.post<ResultadoProc<Reserva>>(this.urlBase, reserva);
     }
   }

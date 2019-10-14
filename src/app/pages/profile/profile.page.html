@@ -1,12 +1,92 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Mi Perfil</ion-title>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="openEnd()">
         <ion-icon slot="icon-only" name="contact"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content> </ion-content> -->
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-title>Mi Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openEnd()">
+        <ion-icon slot="icon-only" name="md-menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="top: -1px;">
+  <ion-grid class="grid_profile">
+    <ion-row>
+      <ion-col size="12" class="profile-row">
+        <ion-row class="ion-padding-horizontal ion-padding-bottom">
+          <ion-col size="4">
+            <ion-avatar class="profile_avatar">
+              <img
+                src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+              /> </ion-avatar
+          ></ion-col>
+          <ion-col size="8" class="ion-margin-vertical ">
+            <span class="text-white text-uppercase"
+              >{{ cliente.nombre }}&nbsp;{{ cliente.apellidos }}
+            </span>
+            <br />
+            <span class="text-muted">
+              {{ cliente.email }}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card class="card_profile" style="color: white">
+    <ion-card-content class="ion-padding-horizontal">
+      <ion-chip mode="ios" color="light" outline="true">
+        <ion-icon name="pin"></ion-icon>
+        <ion-label>Calle falsa #123</ion-label>
+      </ion-chip>
+      <ion-chip mode="ios" color="light" outline="true">
+        <ion-icon name="ios-phone-portrait"></ion-icon>
+        <ion-label>{{ cliente.celular }}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="card_profile_body">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <!--  -->
+      </ion-card-subtitle>
+      <ion-card-title>
+        <!--  -->
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!--  -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<!-- <ion-menu side="end" menuId="custom" class="my-custom-menu">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title>Custom Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu> -->
+
+<!-- <ion-router-outlet main></ion-router-outlet> -->

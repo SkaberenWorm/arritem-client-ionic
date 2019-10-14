@@ -20,6 +20,11 @@ export class SearchPage implements OnInit {
   public pageSize = 5;
   public totalElements = 0;
 
+  public slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
+
   @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll: IonInfiniteScroll;
   constructor(
     private departamentoService: DepartamentoService,

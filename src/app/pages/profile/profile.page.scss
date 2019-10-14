@@ -1,0 +1,50 @@
+.my-custom-menu {
+  --width: 200px;
+}
+
+.card_profile_body,
+.card_profile {
+  margin: 0px;
+
+  border-radius: 25px 25px 0 0;
+  box-shadow: none;
+  color: white;
+}
+.card_profile {
+  top: -25px;
+  background: #2f78f9;
+  padding-bottom: 20px;
+}
+
+.card_profile_body {
+  top: -40px;
+  background: white;
+}
+.profile-row {
+  background: #3880ff;
+  padding-bottom: 10px;
+}
+
+.grid_profile {
+  padding: 0px;
+  top: -2px;
+}
+.profile_avatar {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 80px !important; //any size
+  max-height: 80px !important;
+}
+.text-white {
+  color: white;
+}
+.text-muted {
+  color: #200f7b;
+  font-style: italic;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}

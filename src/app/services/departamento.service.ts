@@ -34,7 +34,8 @@ export class DepartamentoService {
       )
       .pipe(
         map(result => {
-          console.log(result.resultado);
+          console.clear();
+          console.table(result.resultado.content);
           return result;
         })
       );

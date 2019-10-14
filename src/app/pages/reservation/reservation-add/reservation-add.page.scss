@@ -4,3 +4,60 @@ hr {
 .toast-header {
   font-size: 18px !important;
 }
+.card_depto {
+  top: -40px;
+  width: 78%;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1;
+  background: white;
+  border-radius: 25px;
+  padding: 6px;
+}
+
+.precio {
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.btn_back {
+  position: absolute;
+  color: white;
+  z-index: 200;
+}
+
+.slide {
+  min-height: 200px;
+  /* background: #dbdbdb; */
+}
+
+.slide_body {
+  top: -20px;
+}
+
+.skeleton {
+  position: absolute;
+  margin: 0px;
+  height: 200px;
+}
+
+.card_image {
+  height: 200px;
+  background: #c4daffb8;
+}
+
+.card_service {
+  height: 180px;
+  width: 145px;
+}
+
+.precio_depto {
+  color: red;
+  position: absolute;
+  top: 5px;
+  z-index: 1;
+  background: #ffffff94;
+  left: auto;
+  right: 0px;
+}

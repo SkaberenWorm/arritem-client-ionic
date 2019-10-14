@@ -32,6 +32,14 @@ export class ClienteService {
     );
   }
 
+  public getByUser(user: string): Observable<ResultadoProc<Cliente>> {
+    return this.http.get<ResultadoProc<Cliente>>(`${this.urlBase}/user/${user}`).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
   public getByUserOrEmail(userOrEmail: string): Observable<ResultadoProc<Cliente>> {
     return this.http
       .get<ResultadoProc<Cliente>>(`${this.urlBase}/by-user-or-email/${userOrEmail}`)

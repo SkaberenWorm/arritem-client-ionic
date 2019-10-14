@@ -1,4 +1,7 @@
-<ion-header>
+<ion-button *ngIf="paso == 1" class="btn_back" fill="clear" (click)="previous()" slot="start">
+  <ion-icon slot="icon-only" name="md-arrow-back"></ion-icon>
+</ion-button>
+<ion-header *ngIf="paso == 2">
   <ion-toolbar>
     <ion-button fill="clear" (click)="previous()" slot="start">
       <ion-icon slot="icon-only" name="md-arrow-back"></ion-icon>
@@ -8,35 +11,132 @@
 </ion-header>
 
 <ion-content *ngIf="paso == 1">
-  <ion-slides pager="true" [options]="slideOpts">
-    <ion-slide>
+  <!-- <ion-skeleton-text class="skeleton" animated></ion-skeleton-text> -->
+  <ion-slides class="slide" pager="true" [options]="slideOpts">
+    <ion-slide class="card_image">
       <ion-img src="https://picsum.photos/900/500?random&t={{ departamento.id + 3 }}"></ion-img>
     </ion-slide>
-    <ion-slide>
+    <ion-slide class="card_image">
       <ion-img src="https://picsum.photos/900/500?random&t={{ departamento.id + 1 }}"></ion-img>
     </ion-slide>
-    <ion-slide>
+    <ion-slide class="card_image">
       <ion-img src="https://picsum.photos/900/500?random&t={{ departamento.id + 5 }}"></ion-img>
     </ion-slide>
   </ion-slides>
-  <form>
-    <div class="ion-padding">
-      <ion-text class="ion-text-left" color="medium">
-        <h5 color="primary">{{ departamento.direccion }}</h5>
-      </ion-text>
 
-      <div class="ion-text-left ion-margin-top ">Tarifa diaria: ${{ departamento.tarifa }}</div>
-    </div>
-  </form>
+  <ion-chip mode="ios" color="danger" outline="true" class="precio_depto">
+    <ion-label>{{ departamento.tarifa | currency: 'CLP' }}</ion-label>
+  </ion-chip>
+
+  <ion-card class="card_depto">
+    <ion-card-content>
+      <div class="">
+        <ion-text class="ion-text-center" color="medium">
+          <h5 color="primary">{{ departamento.direccion }}</h5>
+        </ion-text>
+
+        <div class="ion-text-center ion-margin-top ">
+          <span>
+            Keep close to Nature's heart... and break clear away, once in awhile, and climb a
+            mountain or spend a week in the woods. Wash your spirit clean.</span
+          >
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-slides pager="false" [options]="slideOpts2" style="top: -20px;">
+    <ion-slide>
+      <ion-card class="card_service">
+        <ion-card-header>
+          <ion-card-title>Aire</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-img src="../../../../assets/img/01.png"></ion-img>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="card_service">
+        <ion-card-header>
+          <ion-card-title>Calefacción</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-img src="../../../../assets/img/02.png"></ion-img>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card class="card_service">
+        <ion-card-header>
+          <ion-card-title>Televisión</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-img src="../../../../assets/img/03.png"></ion-img>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="card_service">
+        <ion-card-header>
+          <ion-card-title>Ducha</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-img src="../../../../assets/img/04.png"></ion-img>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide class="slide_body">
+      <ion-card class="card_service">
+        <ion-card-header>
+          <ion-card-title>Wifi</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-img src="../../../../assets/img/05.png"></ion-img>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="card_service">
+        <ion-card-header>
+          <ion-card-title>Papel</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-img src="../../../../assets/img/06.png"></ion-img>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-card class="card_service">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col class="ion-padding">
+            <ion-img src="../../../../assets/img/01.png"></ion-img>
+          </ion-col>
+          <ion-col class="ion-padding">
+            <ion-img src="../../../../assets/img/02.png"></ion-img>
+          </ion-col>
+          <ion-col class="ion-padding">
+            <ion-img src="../../../../assets/img/03.png"></ion-img>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-align-items-center">
+          <ion-col class="ion-padding">
+            <ion-img src="../../../../assets/img/04.png"></ion-img>
+          </ion-col>
+          <ion-col class="ion-padding">
+            <ion-img src="../../../../assets/img/05.png"></ion-img>
+          </ion-col>
+          <ion-col class="ion-padding">
+            <ion-img src="../../../../assets/img/06.png"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 <ion-content *ngIf="paso == 2">
   <form [formGroup]="formulario">
     <div class="ion-padding">
-      <ion-text class="ion-text-left" color="medium">
-        <h5 color="primary">{{ departamento.direccion }}</h5>
-      </ion-text>
-
       <ion-item>
         <ion-label position="floating"
           >Fecha Inicio
@@ -71,10 +171,10 @@
         <ion-label>Cantidad de días: {{ cantidadDias }}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label>Tarifa diaria: ${{ departamento.tarifa }}</ion-label>
+        <ion-label>Tarifa diaria: {{ departamento.tarifa | currency: 'CLP' }}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label>Total Reserva: ${{ reserva.total }}</ion-label>
+        <ion-label>Total Reserva: {{ reserva.total | currency: 'CLP' }}</ion-label>
       </ion-item>
     </div>
   </form>

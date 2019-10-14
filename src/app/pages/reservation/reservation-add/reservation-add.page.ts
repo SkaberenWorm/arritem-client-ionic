@@ -16,6 +16,7 @@ import { ResultadoProc } from 'src/app/commons/interfaces/resultado-proc.interfa
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Util } from 'src/app/commons/util/util';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservation-add',
@@ -29,10 +30,17 @@ export class ReservationAddPage implements OnInit {
   public reserva: Reserva = new Reserva();
   public formulario: FormGroup;
   public cantidadDias = 0;
-  slideOpts = {
+  public slideOpts = {
     initialSlide: 0,
     speed: 400
   };
+
+  public slideOpts2 = {
+    initialSlide: 0,
+    speed: 400,
+    spaceBetween: 10
+  };
+
   constructor(
     private navParams: NavParams,
     private modalController: ModalController,
@@ -41,7 +49,8 @@ export class ReservationAddPage implements OnInit {
     private authenticationService: AuthenticationService,
     private alert: UtilAlertService,
     private reservaService: ReservaService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -51,8 +60,6 @@ export class ReservationAddPage implements OnInit {
       tarifa: this.navParams.get('tarifa'),
       estado: this.navParams.get('estado')
     });
-
-    console.log(this.reserva);
 
     this.formulario = new FormGroup({
       fechaInicio: new FormControl('', [Validators.required]),
@@ -68,7 +75,6 @@ export class ReservationAddPage implements OnInit {
           this.alert.errorSwal(result.mensaje);
         }
       });
-    console.log(this.formulario);
   }
 
   /**
@@ -103,7 +109,6 @@ export class ReservationAddPage implements OnInit {
     console.log('reservando');
     console.log(this.formulario);
     Util.setFormForValidate(this.formulario);
-    console.log(this.formulario);
 
     if (this.formulario.valid) {
       this.calcularDiasAndCosto();
@@ -111,9 +116,12 @@ export class ReservationAddPage implements OnInit {
       this.reservaService.guardar(this.reserva).subscribe(result => {
         if (!result.error) {
           this.presentAlert(result);
+          this.router.navigate(['/tabs/reservation']);
+          this.dismiss();
         } else {
           this.presentAlert(result);
         }
+        console.log(result);
         this.cerrarLoadingReserva();
       });
     } else {
