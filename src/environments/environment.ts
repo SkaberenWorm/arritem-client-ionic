@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  /* auth_url: 'http://localhost:8080/',
-  backend_url: 'http://localhost:8080/' */
-  auth_url: 'http://192.168.2.4:8080/',
-  backend_url: 'http://192.168.2.4:8080/'
+  auth_url: 'http://localhost:8080/',
+  backend_url: 'http://localhost:8080/'
+  /*   auth_url: 'http://192.168.2.4:8080/',
+  backend_url: 'http://192.168.2.4:8080/' */
   /* auth_url: 'https://arritem.herokuapp.com/',
   backend_url: 'https://arritem.herokuapp.com/' */
 };

@@ -60,6 +60,13 @@ export class ReservationPage implements OnInit {
           }
         },
         {
+          text: 'Agregar acompañantes',
+          icon: 'ios-people',
+          handler: () => {
+            console.log('Agregar acompañantes');
+          }
+        },
+        {
           text: 'Detalle',
           icon: 'md-apps',
           handler: () => {
