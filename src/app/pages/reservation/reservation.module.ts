@@ -8,7 +8,6 @@ import { IonicModule } from '@ionic/angular';
 import { ReservationPage } from './reservation.page';
 import { CommonsServiceModule } from '../../commons/commons-service.module';
 import { ReservaService } from 'src/app/services/reserva.service';
-import { ReservationAddPage } from './reservation-add/reservation-add.page';
 
 const routes: Routes = [
   {
@@ -24,7 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    CommonsServiceModule
+    CommonsServiceModule,
   ],
   declarations: [ReservationPage],
   providers: [ReservaService]

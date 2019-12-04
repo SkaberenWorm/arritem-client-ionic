@@ -116,6 +116,8 @@ export class ReservationAddPage implements OnInit {
       this.reservaService.guardar(this.reserva).subscribe(result => {
         if (!result.error) {
           this.presentAlert(result);
+          var mensaje: string = 'Su reserva ha sido registrada correctamente <br> N° reserva: '+result.resultado.id +'<br> Fecha: '+this.reserva.fechaHoraInicio+' hasta '+this.reserva.fechaHoraTermino;
+          this.reservaService.enviarEmail('is.cuevas@alumnos.duoc.cl', mensaje).subscribe();
           this.router.navigate(['/tabs/reservation']);
           this.dismiss();
         } else {

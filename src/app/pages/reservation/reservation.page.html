@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="listarReservas($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
   <ion-list>
     <ng-container *ngFor="let reserva of listadoReservas">
       <ion-item-sliding (click)="presentActionSheet(reserva)">

@@ -167,7 +167,6 @@ export class SearchPage implements OnInit {
           icon: 'ios-bookmarks',
           handler: () => {
             console.log('Reservation clicked');
-
             this.presentModal(departamento);
           }
         },

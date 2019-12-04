@@ -3,7 +3,7 @@ import { ReservaService } from 'src/app/services/reserva.service';
 import { Reserva } from 'src/app/commons/models/reserva.model';
 import { AuthenticationService } from 'src/app/commons/services/authentication.service';
 import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
-import { ActionSheetController, LoadingController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reservation',
@@ -17,14 +17,14 @@ export class ReservationPage implements OnInit {
     private authenticationService: AuthenticationService,
     private actionSheetController: ActionSheetController,
     private alert: UtilAlertService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
   ) {}
 
   ngOnInit() {
     this.listarReservas();
   }
 
-  listarReservas() {
+  listarReservas(event?) {
     this.reservaService
       .misReservas(this.authenticationService.obtenerUserName())
       .subscribe(result => {
@@ -32,6 +32,9 @@ export class ReservationPage implements OnInit {
           this.listadoReservas = result.resultado;
         } else {
           this.alert.errorSwal(result.mensaje);
+        }
+        if (event!=null) {
+          event.target.complete();
         }
       });
   }
@@ -64,6 +67,7 @@ export class ReservationPage implements OnInit {
           icon: 'ios-people',
           handler: () => {
             console.log('Agregar acompañantes');
+            // this.presentModal(reserva);
           }
         },
         {
@@ -107,4 +111,6 @@ export class ReservationPage implements OnInit {
       dismissed: true
     });
   }
+
+  
 }

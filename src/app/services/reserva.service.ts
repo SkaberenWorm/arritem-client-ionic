@@ -11,7 +11,14 @@ import { Reserva } from '../commons/models/reserva.model';
 })
 export class ReservaService {
   private urlBase = `${environment.backend_url}api/reserva`;
-  constructor(private http: HttpClient) {}
+  private urlBaseEmail = `${environment.backend_url}api/email`;
+
+
+  constructor(private http: HttpClient) { }
+  
+  public enviarEmail(usuarioId: String, mensaje: String) {
+    return this.http.get(`${this.urlBaseEmail}/${usuarioId}/mensaje/${mensaje}`);
+  }
 
   public listado(): Observable<ResultadoProc<Array<Reserva>>> {
     return this.http.get<ResultadoProc<Array<Reserva>>>(`${this.urlBase}/all`).pipe(
